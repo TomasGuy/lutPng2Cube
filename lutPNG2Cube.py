@@ -14,11 +14,14 @@ def lutPNG2Cube(pngFile):
         startY = LUT_3D_SIZE * (z / 8)
         for y in range(LUT_3D_SIZE):
             for x in range(LUT_3D_SIZE):
-                # r, g, b, a = img_array[x + startX, +startY]
-                r, g, b = img_array[x + startX, +startY]
+                if len(img_array[x + startX, +startY])==4:
+                    r, g, b, a = img_array[x + startX, +startY]
+                else:
+                    r, g, b = img_array[x + startX, +startY]
                 fo.writelines(
                     str(round(r / 255, 6)) + " " + str(round(g / 255, 6)) + " " + str(round(b / 255, 6)) + "\n")
     fo.close()
+    print("Done, "+ pngFile)
 
 
 lutPNG2Cube("test_lut.png")
